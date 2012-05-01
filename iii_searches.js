@@ -7,6 +7,17 @@ $("form").submit(function() {
 	var ts = Math.round((new Date()).getTime() / 1000); // Timestamp
 	var datastring = "";
 	
+	// Get search type - could also grab from the URL and parse into readable value
+	var searchy = $("h2").text().trim().split(" ");
+	var searchType = searchy[0];
+
+		if(searchType == "") {
+			searchy = $("#searchtype").find("option:selected").text().trim().split(" ");
+			searchType = searchy[0];
+		}
+		
+	if(searchType != "Advanced") {
+	
 	// Get value of search field
 	
 	// Keyword
@@ -18,18 +29,12 @@ $("form").submit(function() {
 		var searchQuery = $('#SEARCH').val();
 	}
 	
-	// Need to write code to capture the Advanced Search
+	} 
+	
+	// Advanced search is handled by a javascript form submission, which creates probems for my function
+	// We'll handle it another way (although it isn't heavily used by librarians)
 	
 	if(searchQuery != undefined) {
-	
-		// Get search type - could also grab from the URL and parse into readable value
-		var searchy = $("h2").text().trim().split(" ");
-		var searchType = searchy[0];
-
-			if(searchType == "") {
-				searchy = $("#searchtype").find("option:selected").text().trim().split(" ");
-				searchType = searchy[0];
-			}
 		
 		// Record the search and other details
 		// For now, into a .csv file for ease
@@ -45,7 +50,6 @@ $("form").submit(function() {
 			data: datastring
 		});
 		datastring = "";
-	});
 	}
 	
 });
